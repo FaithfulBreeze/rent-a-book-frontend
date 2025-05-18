@@ -21,7 +21,7 @@ export default function Container({
     <div
       className={`${handleAllignment()} ${
         center && "absolute top-[50%] left-[50%] translate-[-50%]"
-      } m-auto flex max-w-5xl w-full px-4 py-2 ${className}`}
+      } m-auto flex max-w-7xl w-full px-4 py-2 ${className}`}
     >
       {children}
     </div>

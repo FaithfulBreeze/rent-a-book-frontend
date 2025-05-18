@@ -4,7 +4,6 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import {
   InputOTP,
@@ -14,13 +13,15 @@ import {
 } from "@/components/ui/input-otp";
 import { formSchema } from "./registerForm";
 import * as z from "zod";
+import { Dispatch, SetStateAction } from "react";
+import { AuthPageStateProps } from "@/app/auth/page";
 
 export default function RegisterDialog({
   setState,
   onChange,
 }: {
-  setState: Function;
-  onChange: Function;
+  setState: Dispatch<SetStateAction<AuthPageStateProps>>;
+  onChange: (value: string) => void;
 }) {
   return (
     <Dialog

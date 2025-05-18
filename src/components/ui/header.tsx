@@ -4,11 +4,9 @@ import {
   MenubarContent,
   MenubarItem,
   MenubarMenu,
-  MenubarSeparator,
-  MenubarShortcut,
   MenubarTrigger,
 } from "@/components/ui/menubar";
-import { APIFetch, handleLogout } from "@/lib/utils";
+import { handleLogout } from "@/lib/utils";
 import { Book } from "lucide-react";
 import { redirect } from "next/navigation";
 

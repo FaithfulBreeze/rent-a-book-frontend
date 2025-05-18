@@ -14,7 +14,7 @@ import { useState } from "react";
 import { toast, Toaster } from "sonner";
 import * as z from "zod";
 
-interface StateProps {
+export interface AuthPageStateProps {
   dialogVisibility: boolean;
   toaster?: {
     visible: boolean;
@@ -25,7 +25,7 @@ interface StateProps {
 }
 
 export default function Auth() {
-  const [state, setState] = useState<StateProps>({
+  const [state, setState] = useState<AuthPageStateProps>({
     dialogVisibility: false,
     registerBody: null,
   });
@@ -37,11 +37,11 @@ export default function Auth() {
   };
 
   const handleDialogValueChange = async (value: string) => {
-    const { response, responseContent } = await APIFetch(
-      `/users?validation_code=${value}`,
-      "POST",
-      state.registerBody || {}
-    );
+    const { response, responseContent } = await APIFetch({
+      endpoint: `/users?validation_code=${value}`,
+      method: "POST",
+      body: state.registerBody || {},
+    });
     if (response.status == 201) {
       setState({
         dialogVisibility: false,
@@ -72,7 +72,7 @@ export default function Auth() {
     const {
       response: { status },
       responseContent,
-    } = await APIFetch("/users", "POST", data);
+    } = await APIFetch({ endpoint: "/users", method: "POST", body: data });
 
     if (status == 201)
       setState({
@@ -98,7 +98,11 @@ export default function Auth() {
     data: z.infer<typeof loginFormSchema>
   ) => {
     setState((prev) => ({ ...prev, isLoading: true }));
-    const { response, responseContent } = await APIFetch("/auth", "POST", data);
+    const { response, responseContent } = await APIFetch({
+      endpoint: "/auth",
+      method: "POST",
+      body: data,
+    });
 
     if (response.status == 200) {
       setState({
@@ -113,7 +117,7 @@ export default function Auth() {
       alertToast();
       setTimeout(() => {
         redirect("/books");
-      }, 1200);
+      }, 600);
     } else {
       setState({
         dialogVisibility: false,
